@@ -1,0 +1,41 @@
+# mosdns 配置示例
+server:
+  listen: [":53"]
+  cache_size: 4096
+
+upstream:
+  domestic:
+    - "114.114.114.114"
+    - "223.5.5.5"
+  foreign:
+    - "208.67.222.222"  # OpenDNS
+    - "8.8.8.8"         # Google DNS
+    - "1.1.1.1"         # Cloudflare DNS
+
+rules:
+  - domain: [".cn", ".com.cn"]
+    use: "domestic"
+  - domain: ["!cn", ".com", ".net", ".org"]
+    use: "foreign"
+
+adblock:
+  enabled: true
+  rules_url: "https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/ChineseFilter/sections/adservers.txt"
+
+streaming:
+  domains:
+    - "netflix.com"
+    - "youtube.com"
+  use: "foreign"
+
+dns_over_tls:
+  enabled: true
+  upstream:
+    - "8.8.8.8"
+    - "1.1.1.1"
+
+update_rules:
+  interval: "24h"
+  urls:
+    - "https://github.com/ACL4SSR/ACL4SSR/raw/master/Clash/Ruleset/China.yaml"
+    - "https://github.com/v2fly/domain-list-community/raw/master/data/gfwlist.txt"
