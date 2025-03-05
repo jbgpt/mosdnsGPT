@@ -1,0 +1,2 @@
+# mosdnsGPT
+chatGPT build
